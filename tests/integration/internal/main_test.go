@@ -40,7 +40,7 @@ func TestCacheTemplate(t *testing.T) {
 		} else if sbx.JSON201 == nil {
 			t.Logf("Response error: %d %v", sbx.StatusCode(), string(sbx.Body))
 		} else {
-			utils.TeardownSandbox(t, c, sbx.JSON201.SandboxID)
+			utils.TeardownSandbox(t.Context(), t, c, sbx.JSON201.SandboxID)
 		}
 	})
 }

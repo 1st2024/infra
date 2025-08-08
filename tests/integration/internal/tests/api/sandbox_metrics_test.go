@@ -16,7 +16,7 @@ func TestSandboxMetrics(t *testing.T) {
 	c := setup.GetAPIClient()
 
 	// Create a sandbox for testing
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 
 	// Ensure there are some metrics
 	maxRetries := 15

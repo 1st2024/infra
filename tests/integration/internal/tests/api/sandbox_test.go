@@ -34,7 +34,7 @@ func TestSandboxCreate(t *testing.T) {
 		}
 
 		if resp.JSON201 != nil {
-			utils.TeardownSandbox(t, c, resp.JSON201.SandboxID)
+			utils.TeardownSandbox(t.Context(), t, c, resp.JSON201.SandboxID)
 		}
 	})
 
@@ -63,7 +63,7 @@ func TestSandboxResumeUnknownSandbox(t *testing.T) {
 	}
 
 	t.Cleanup(func() {
-		utils.TeardownSandbox(t, c, sbxCreate.JSON201.SandboxID)
+		utils.TeardownSandbox(t.Context(), t, c, sbxCreate.JSON201.SandboxID)
 	})
 
 	assert.Equal(t, http.StatusNotFound, sbxResume.StatusCode())
@@ -101,7 +101,7 @@ func TestSandboxResumeWithSecuredEnvd(t *testing.T) {
 	require.NotNil(t, sbxResume.JSON201)
 
 	t.Cleanup(func() {
-		utils.TeardownSandbox(t, c, sbxCreate.JSON201.SandboxID)
+		utils.TeardownSandbox(t.Context(), t, c, sbxCreate.JSON201.SandboxID)
 	})
 
 	assert.Equal(t, sbxResume.JSON201.SandboxID, sbxCreate.JSON201.SandboxID)

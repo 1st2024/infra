@@ -15,7 +15,7 @@ func TestSandboxDetailRunning(t *testing.T) {
 	c := setup.GetAPIClient()
 
 	// Create a sandbox for testing
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 
 	// Test basic list functionality
 	response, err := c.GetSandboxesSandboxIDWithResponse(t.Context(), sbx.SandboxID, setup.WithAPIKey())
@@ -30,7 +30,7 @@ func TestSandboxDetailRunning(t *testing.T) {
 func TestSandboxDetailPaused(t *testing.T) {
 	c := setup.GetAPIClient()
 
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 	sandboxID := sbx.SandboxID
 	pauseSandbox(t, c, sandboxID)
 

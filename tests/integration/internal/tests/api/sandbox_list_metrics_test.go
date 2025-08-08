@@ -17,8 +17,8 @@ func TestSandboxListMetrics(t *testing.T) {
 	c := setup.GetAPIClient()
 
 	// Create a sandbox for testing
-	sbx1 := utils.SetupSandboxWithCleanup(t, c)
-	sbx2 := utils.SetupSandboxWithCleanup(t, c)
+	sbx1 := utils.SetupSandboxWithCleanup(t.Context(), t, c)
+	sbx2 := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 
 	maxRetries := 15
 	var result map[string]api.SandboxMetric

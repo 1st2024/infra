@@ -57,7 +57,7 @@ func TestBindLocalhost(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			sbx := utils.SetupSandboxWithCleanup(t, client, utils.WithTimeout(300))
+			sbx := utils.SetupSandboxWithCleanup(t.Context(), t, client, utils.WithTimeout(300)) // nolint:contextcheck // not true, t.Context is more appropriate
 			envdClient := setup.GetEnvdClient(t, ctx)
 
 			port := 3210

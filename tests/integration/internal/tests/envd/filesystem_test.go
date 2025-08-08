@@ -28,7 +28,7 @@ func TestListDir(t *testing.T) {
 	defer cancel()
 
 	c := setup.GetAPIClient()
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 	envdClient := setup.GetEnvdClient(t, ctx)
 
 	utils.CreateDir(t, sbx, testFolder)
@@ -107,7 +107,7 @@ func TestFilePermissions(t *testing.T) {
 	defer cancel()
 
 	c := setup.GetAPIClient()
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 
 	envdClient := setup.GetEnvdClient(t, ctx)
 	req := connect.NewRequest(&process.StartRequest{
@@ -148,7 +148,7 @@ func TestStat(t *testing.T) {
 	defer cancel()
 
 	c := setup.GetAPIClient()
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 
 	envdClient := setup.GetEnvdClient(t, ctx)
 	filePath := "/home/user/test.txt"
@@ -190,7 +190,7 @@ func TestListDirFileEntry(t *testing.T) {
 	defer cancel()
 
 	c := setup.GetAPIClient()
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 	envdClient := setup.GetEnvdClient(t, ctx)
 
 	// Create test directory and file
@@ -236,7 +236,7 @@ func TestListDirEntry(t *testing.T) {
 	defer cancel()
 
 	c := setup.GetAPIClient()
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 	envdClient := setup.GetEnvdClient(t, ctx)
 
 	// Create test directories
@@ -279,7 +279,7 @@ func TestListDirMixedEntries(t *testing.T) {
 	defer cancel()
 
 	c := setup.GetAPIClient()
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 	envdClient := setup.GetEnvdClient(t, ctx)
 
 	// Create test directories and files
@@ -342,7 +342,7 @@ func TestRelativePath(t *testing.T) {
 	defer cancel()
 
 	c := setup.GetAPIClient()
-	sbx := utils.SetupSandboxWithCleanup(t, c)
+	sbx := utils.SetupSandboxWithCleanup(t.Context(), t, c)
 	envdClient := setup.GetEnvdClient(t, ctx)
 
 	utils.CreateDir(t, sbx, path.Join(userHome, relativeTestFolder))

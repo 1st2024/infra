@@ -34,11 +34,10 @@ func WithTimeout(timeout int32) SandboxOption {
 }
 
 // SetupSandboxWithCleanup creates a new sandbox and returns its data
-func SetupSandboxWithCleanup(t *testing.T, c *api.ClientWithResponses, options ...SandboxOption) *api.Sandbox {
+func SetupSandboxWithCleanup(ctx context.Context, t *testing.T, c *api.ClientWithResponses, options ...SandboxOption) *api.Sandbox {
 	t.Helper()
 
-	// t.Context() doesn't work with go vet, so we use our own context
-	ctx, cancel := context.WithCancel(t.Context())
+	ctx, cancel := context.WithCancel(ctx)
 	t.Cleanup(cancel)
 
 	config := SandboxConfig{
@@ -66,16 +65,16 @@ func SetupSandboxWithCleanup(t *testing.T, c *api.ClientWithResponses, options .
 		if t.Failed() {
 			t.Logf("Response: %s", string(createSandboxResponse.Body))
 		}
-		TeardownSandbox(t, c, createSandboxResponse.JSON201.SandboxID)
+		TeardownSandbox(ctx, t, c, createSandboxResponse.JSON201.SandboxID)
 	})
 
 	return createSandboxResponse.JSON201
 }
 
 // TeardownSandbox kills the sandbox with the given ID
-func TeardownSandbox(t *testing.T, c *api.ClientWithResponses, sandboxID string) {
+func TeardownSandbox(ctx context.Context, t *testing.T, c *api.ClientWithResponses, sandboxID string) {
 	t.Helper()
-	killSandboxResponse, err := c.DeleteSandboxesSandboxIDWithResponse(t.Context(), sandboxID, setup.WithAPIKey())
+	killSandboxResponse, err := c.DeleteSandboxesSandboxIDWithResponse(ctx, sandboxID, setup.WithAPIKey())
 
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusNoContent, killSandboxResponse.StatusCode())

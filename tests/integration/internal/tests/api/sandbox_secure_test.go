@@ -37,7 +37,7 @@ func TestCreateSandboxWithSecuredEnvd(t *testing.T) {
 		}
 
 		if resp.JSON201 != nil {
-			utils.TeardownSandbox(t, c, resp.JSON201.SandboxID)
+			utils.TeardownSandbox(t.Context(), t, c, resp.JSON201.SandboxID)
 		}
 	})
 

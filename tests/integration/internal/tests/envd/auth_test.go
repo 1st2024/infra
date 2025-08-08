@@ -43,7 +43,7 @@ func createSandbox(t *testing.T, sbxWithAuth bool, reqEditors ...api.RequestEdit
 		}
 
 		if resp.JSON201 != nil {
-			utils.TeardownSandbox(t, setup.GetAPIClient(), resp.JSON201.SandboxID)
+			utils.TeardownSandbox(t.Context(), t, setup.GetAPIClient(), resp.JSON201.SandboxID)
 		}
 	})
 
